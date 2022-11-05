@@ -22,7 +22,7 @@ const ParkingSpot = ({available, location, spotNum, ...rest}) => {
                         <Text fontSize='md'>Parking Spot #{spotNum}</Text>
                         <Icon as={BsFillCircleFill} w={3} h={3} color={color}/>
                     </HStack>
-                    <Text>Location: {location}</Text>
+                    <Text color='gray.500'>Location: {location}</Text>
                 </VStack>
             </Center>
 
