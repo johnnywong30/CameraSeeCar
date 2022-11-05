@@ -1,9 +1,12 @@
 import React from 'react';
 import { Route, Routes as Switch } from 'react-router-dom';
 
+import Home from './Pages/Home';
+
 const Routes = () => {
     return (
         <Switch>
+            <Route path='/' element={<Home />} />
             {/* <Route path='/' element={<Home />} />
             <Route path='/my-bin' element={<Bin />} />
             <Route path='/my-posts' element={<Posts />} />
