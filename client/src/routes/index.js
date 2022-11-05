@@ -2,16 +2,15 @@ import React from 'react';
 import { Route, Routes as Switch } from 'react-router-dom';
 
 import Home from './Pages/Home';
+import Taken from './Pages/Taken';
+import Parking from './Pages/Parking';
 
 const Routes = () => {
     return (
         <Switch>
             <Route path='/' element={<Home />} />
-            {/* <Route path='/' element={<Home />} />
-            <Route path='/my-bin' element={<Bin />} />
-            <Route path='/my-posts' element={<Posts />} />
-            <Route path='/new-post' element={<Post />} />
-            <Route path='*' element={<Error />} /> */}
+            <Route path='/parking' element={<Parking />} />
+            <Route path='/taken' element={<Taken />} />
         </Switch>
     )
 }

@@ -1,0 +1,17 @@
+[
+  {
+    "spotNum": 1,
+    "location": "Madison St Garage",
+    "available": false
+  },
+  {
+    "spotNum": 2,
+    "location": "Madison St Garage",
+    "available": true
+  },
+  {
+    "spotNum": 3,
+    "location": "Madison St Garage",
+    "available": false
+  }
+]
