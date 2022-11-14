@@ -16,10 +16,17 @@ const App = () => {
   // initialize client socket
   useEffect(() => {
     socketRef.current = io('/');
+    socketRef.current.emit('connection') 
     return () => {
+      socketRef.current.emit('disconnection')
       socketRef.current.disconnect();
     };
   }, []);
+
+  // initial fetch of parking spots
+  useEffect(() => {
+    socketRef.current.emit('get-parking-spots') 
+  }, [])
 
   // listen for 'parking-spots' to update current parking spots
   useEffect(() => {

@@ -13,7 +13,7 @@ const Nav = () => {
                     <Divider orientation='vertical' borderColor='gray.800'/>
                     <NavItem to='/' text='Home' />
                     <Divider orientation='vertical' borderColor='gray.800'/>
-                    <NavItem to='/taken' text='My Spots' />
+                    <NavItem to='/taken' text='Taken Spots' />
                 </HStack>
             </Center>
         </Stack>

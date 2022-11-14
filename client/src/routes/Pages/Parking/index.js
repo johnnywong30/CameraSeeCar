@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { VStack, HStack, Center, Box, Image } from '@chakra-ui/react'
 import ParkingSpotList from '../../../components/ParkingSpotList';
+import { useSelector } from 'react-redux';
 import ParkingSpots from '../../../constants/ParkingSpots.json'
 
 const Parking = () => {
     const src = 'https://i.imgur.com/M7Lqj93.jpg'
     const height = '400px'
-    const data = ParkingSpots.filter(({available}) => available)
+    const { parkingSpots } = useSelector(({ parking }) => parking)
+    const data = parkingSpots.filter(({available}) => available)
     return (
         <Center w='100vw' marginY='25px'>
             <HStack spacing={4}>
