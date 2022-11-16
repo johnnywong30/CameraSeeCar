@@ -30,9 +30,9 @@ const App = () => {
 
   // listen for 'parking-spots' to update current parking spots
   useEffect(() => {
-    socketRef.current.on('parking-spots', ({ parkingSpots }) => {
-      console.log("Received New Parking Spots: ", parkingSpots);
-      dispatch(updateParkingSpots(parkingSpots));
+    socketRef.current.on('parking-spots', (data) => {
+      console.log("Received New Parking Spots: ", data);
+      dispatch(updateParkingSpots(data));
     })
   }, [parkingSpots])
 

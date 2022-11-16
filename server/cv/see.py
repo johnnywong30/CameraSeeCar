@@ -28,14 +28,14 @@ class spots:
 
 def see(r):
     # Get parking spot locations
-    with open('data/rois.csv', 'r', newline='') as inf:
+    with open('cv/data/rois.csv', 'r', newline='') as inf:
         csvr = csv.reader(inf)
         rois = list(csvr)
 
     rois = [[int(float(j)) for j in i] for i in rois]
 
     # Get video
-    VIDEO_SOURCE = "carPark.mp4"
+    VIDEO_SOURCE = "cv/carPark.mp4"
     cap = cv2.VideoCapture(VIDEO_SOURCE)
     fps = cap.get(cv2.CAP_PROP_FPS)
 
@@ -65,7 +65,7 @@ def see(r):
         font = cv2.FONT_HERSHEY_SIMPLEX
         for i in range(len(rois)):
             b = drawRectangle(frame, thresh_img, rois[i][0], rois[i][1], rois[i][2], rois[i][3])
-            D = {"spotNum": i+1, "location": "Madison St.", "available": b}
+            D = {"spotNum": i+1, "location": "Shoprite", "available": b}
             spots.spots.append(D)
             cv2.putText(frame, str(i), (rois[i][0]+1, rois[i][1]+15), font, .5, (255,255,255), 1)
 
@@ -73,7 +73,7 @@ def see(r):
         r.set('parkingData', json_string)
 
         cv2.putText(frame, 'Available spots: ' + str(spots.loc), (10, 30), font, 1, (0, 255, 0), 2)
-        cv2.imshow('Detector', frame)
+        # cv2.imshow('Detector', frame)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
@@ -83,9 +83,12 @@ def see(r):
             time.sleep(1.0/fps - timeDiff)
 
     cap.release()
-    cv2.destroyAllWindows()
+    # cv2.destroyAllWindows()
+
+def main():
+    r = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+    see(r)
 
 
 if __name__ == '__main__':
-    r = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
-    see(r)
+    main()
