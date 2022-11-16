@@ -2,8 +2,14 @@ import cv2
 import csv
 import numpy as np
 import time
+from time import sleep
 import redis
 import json
+from PIL import Image as im
+import threading
+
+r = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+lock = threading.Lock()
 
 def drawRectangle(img, thresh_img, a, b, c, d):
     # min/max pixels to be considered an available spot
@@ -26,7 +32,7 @@ class spots:
     loc = 0
     spots = []
 
-def see(r):
+def see(r, lock=lock):
     # Get parking spot locations
     with open('cv/data/rois.csv', 'r', newline='') as inf:
         csvr = csv.reader(inf)
@@ -65,7 +71,7 @@ def see(r):
         font = cv2.FONT_HERSHEY_SIMPLEX
         for i in range(len(rois)):
             b = drawRectangle(frame, thresh_img, rois[i][0], rois[i][1], rois[i][2], rois[i][3])
-            D = {"spotNum": i+1, "location": "Shoprite", "available": b}
+            D = {"spotNum": i, "location": "Shoprite", "available": b}
             spots.spots.append(D)
             cv2.putText(frame, str(i), (rois[i][0]+1, rois[i][1]+15), font, .5, (255,255,255), 1)
 
@@ -74,6 +80,10 @@ def see(r):
 
         cv2.putText(frame, 'Available spots: ' + str(spots.loc), (10, 30), font, 1, (0, 255, 0), 2)
         # cv2.imshow('Detector', frame)
+        
+        lock.acquire()
+        cv2.imwrite('frame.jpeg', frame)
+        lock.release()
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
@@ -85,9 +95,8 @@ def see(r):
     cap.release()
     # cv2.destroyAllWindows()
 
-def main():
-    r = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
-    see(r)
+def main(r=r, lock=lock):
+    see(r, lock)
 
 
 if __name__ == '__main__':

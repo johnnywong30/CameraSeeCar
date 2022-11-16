@@ -3,6 +3,11 @@ export const updateParkingSpots = parkingSpots => ({
     payload: parkingSpots
 })
 
+export const updateParkingFrame = frame => ({
+    type: 'UPDATE_PARKING_FRAME',
+    payload: frame
+})
+
 const actions = {
     updateParkingSpots
 }

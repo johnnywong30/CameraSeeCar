@@ -5,7 +5,10 @@ import { useSelector } from 'react-redux';
 import ParkingSpots from '../../../constants/ParkingSpots.json'
 
 const Parking = () => {
-    const src = 'https://i.imgur.com/M7Lqj93.jpg'
+    const { parkingFrame } = useSelector(({parking}) => parking)
+    
+    const src = parkingFrame ? parkingFrame : 'https://i.imgur.com/M7Lqj93.jpg'
+
     const height = '400px'
     const { parkingSpots } = useSelector(({ parking }) => parking)
     const data = parkingSpots.filter(({available}) => available)

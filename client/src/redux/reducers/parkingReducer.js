@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
-    parkingSpots: []
+    parkingSpots: [],
+    parkingFrame: ''
 }
 
 const parkingReducer = (state = INITIAL_STATE, action) => {
@@ -9,6 +10,11 @@ const parkingReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 parkingSpots: payload
+            }
+        case 'UPDATE_PARKING_FRAME':
+            return {
+                ...state,
+                parkingFrame: payload
             }
         default:
             return state
